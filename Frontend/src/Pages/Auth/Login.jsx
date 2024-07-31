@@ -47,8 +47,8 @@ const Login = () => {
     const { email, password } = values;
 
     setLoading(true);
-
-    const { data } = await axios.post(loginAPI, {
+    console.log(loginAPI);
+    const { data } = await axios.post("http://localhost:8000/api/auth/login", {
       email,
       password,
     });
@@ -70,7 +70,7 @@ const Login = () => {
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
+     await console.log(container);
   }, []);
 
   return (

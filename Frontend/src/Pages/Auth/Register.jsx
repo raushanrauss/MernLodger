@@ -8,7 +8,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { registerAPI } from "../../utils/ApiRequest";
+//import { registerAPI } from "../../utils/ApiRequest";
 import axios from "axios";
 
 const Register = () => {
@@ -18,7 +18,7 @@ const Register = () => {
 
   useEffect(() => {
     if(localStorage.getItem('user')){
-      navigate('/');
+      navigate('/login');
     }
   }, [navigate]);
 
@@ -28,7 +28,7 @@ const Register = () => {
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
+    await console.log(container);
   }, []);
 
   const [values, setValues] = useState({
@@ -60,7 +60,7 @@ const Register = () => {
 
       setLoading(false);
      
-      const {data} = await axios.post(registerAPI, {
+    const { data } = await axios.post("http://localhost:8000/api/auth/register", {
         name,
         email,
         password

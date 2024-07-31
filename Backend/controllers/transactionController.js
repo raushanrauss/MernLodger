@@ -1,7 +1,8 @@
 const Transaction = require("../models/TransactionModel"); // Adjust the path if needed
 const User = require("../models/UserSchema"); // Adjust the path if needed
 const moment = require("moment");
-
+const { generateTransactionPDF } = require("../Utils/pdfGeneraort");
+const path = require('path');
 const addTransactionController = async (req, res) => {
   try {
     const {
@@ -182,9 +183,60 @@ const updateTransactionController = async (req, res) => {
   }
 };
 
+const generateReportController = async (req, res) => {
+  try {
+    const { userId, startDate, endDate } = req.query;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const query = { user: userId };
+
+    if (startDate && endDate) {
+      query.date = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    }
+
+    const transactions = await Transaction.find(query);
+
+    if (transactions.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No transactions found",
+      });
+    }
+
+    const filePath = path.join(__dirname, '..', 'reports', 'transactions_report.pdf');
+
+    await generateTransactionPDF(transactions, filePath);
+
+    res.download(filePath, 'transactions_report.pdf', (err) => {
+      if (err) {
+        console.error("Error sending file:", err);
+        res.status(500).json({ success: false, message: "Error generating PDF" });
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   addTransactionController,
   getAllTransactionController,
   deleteTransactionController,
-  updateTransactionController
+  updateTransactionController,
+  generateReportController 
+
 };

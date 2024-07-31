@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Form, Container } from "react-bootstrap";
@@ -166,13 +166,13 @@ const Home = () => {
     };
 
     fetchAllTransactions();
-  }, [refresh, frequency, endDate, type, startDate]);
+  }, [refresh, frequency, endDate, type, startDate, cUser._id]);
 
-  const handleTableClick = (e) => {
+  const handleTableClick = () => {
     setView("table");
   };
 
-  const handleChartClick = (e) => {
+  const handleChartClick = () => {
     setView("chart");
   };
 
@@ -242,7 +242,10 @@ const Home = () => {
               <div>
                 <Button onClick={handleShow} className="addNew">
                   Add New
-                </Button>
+                  </Button>
+                  <Button onClick={handleShow} className="addNew">
+                  Generate
+                  </Button>
                 <Button onClick={handleShow} className="mobileBtn">
                   +
                 </Button>

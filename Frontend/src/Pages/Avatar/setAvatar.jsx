@@ -11,15 +11,15 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { setAvatarAPI } from "../../utils/ApiRequest";
 
-// import Buffer from "buffer";
-// const {
-//   uniqueNamesGenerator,
-//   colors,
-//   animals,
-//   countries,
-//   names,
-//   languages,
-// } = require("unique-names-generator");
+
+import {
+  uniqueNamesGenerator,
+  colors,
+  animals,
+  countries,
+  names,
+  languages,
+} from 'unique-names-generator';
 
 const SetAvatar = () => {
   const sprites = [
@@ -57,7 +57,7 @@ const SetAvatar = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const [selectedSprite, setSelectedSprite] = React.useState(sprites[0]);
+  const [ setSelectedSprite] = React.useState(sprites[0]);
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -133,7 +133,7 @@ const SetAvatar = () => {
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
+  await console.log(container);
   }, []);
 
   return (
@@ -211,7 +211,7 @@ const SetAvatar = () => {
             {/* <Container></Container> */}
             <div
               className="container containerBox"
-              h={"100vh"}
+              
               style={{ position: "relative", zIndex: "2 !important" }}
             >
               <div className="avatarBox">

@@ -1,5 +1,5 @@
 // NavbarComponent.js
-import React, { useCallback, useEffect, useState } from 'react';
+import  { useCallback, useEffect, useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,9 @@ const navigate = useNavigate();
   const handleShowLogin = () =>{
     navigate("/login");
   }
-
+  const handlePdf = () => {
+    navigate("/genertePdf")
+  }
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const navigate = useNavigate();
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
+   await console.log(container);
   }, []);
   
   return (
@@ -133,7 +135,11 @@ const navigate = useNavigate();
           {user ? (
             <>
             <Nav>
-                <Button variant="primary" onClick={handleShowLogout} className="ml-2">Logout</Button>
+                    <Button variant="primary" onClick={handleShowLogout} className="ml-2">Logout</Button>
+                    
+                    <Button onClick={handlePdf} className="addNew">
+                      Generate Pdf
+                    </Button>
               </Nav>
             </>
           ) : (
