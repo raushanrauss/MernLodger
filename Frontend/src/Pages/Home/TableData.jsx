@@ -4,7 +4,7 @@ import moment from "moment";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import "./home.css";
-//import { deleteTransactions, editTransactions } from "../../utils/ApiRequest";
+import { deleteTransactions, editTransactions } from "../../utils/ApiRequest";
 import axios from "axios";
 
 const TableData = (props) => {

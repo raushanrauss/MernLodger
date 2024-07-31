@@ -1,12 +1,10 @@
-.lnk {
+.lnk{
     text-decoration: none;
 }
-
-.btnStyle {
+.btnStyle{
     background-color: red;
     border: 2px solid red;
 }
-
-.btnStyle:hover {
+.btnStyle:hover{
     background-color: rgb(75, 11, 11);
 }

@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-
+import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
-import { Button, Modal, Form, Container, Spinner } from "react-bootstrap";
+import { Button, Modal, Form, Container } from "react-bootstrap";
 // import loading from "../../assets/loader.gif";
 import "./home.css";
-//import { addTransaction, getTransactions } from "../../utils/ApiRequest";
+import { addTransaction, getTransactions } from "../../utils/ApiRequest";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Spinner from "../../components/Spinner";
 import TableData from "./TableData";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Analytics from "./Analytics";
-import Header from "../../component/Header";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -191,7 +190,7 @@ const Home = () => {
             style={{ position: "relative", zIndex: "2 !important" }}
             className="mt-3"
           >
-            <div className="">
+            <div className="filterRow">
               <div className="text-white">
                 <Form.Group className="mb-3" controlId="formSelectFrequency">
                   <Form.Label>Select Frequency</Form.Label>

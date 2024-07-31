@@ -7,9 +7,9 @@ import axios from "axios";
 import spinner from "../../assets/gg.gif";
 import "./avatar.css";
 import { Button } from "react-bootstrap";
-//import { setAvatarAPI } from "../../utils/ApiRequest.js";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { setAvatarAPI } from "../../utils/ApiRequest";
 
 // import Buffer from "buffer";
 // const {
@@ -89,7 +89,8 @@ const SetAvatar = () => {
         const imgData = [];
         for (let i = 0; i < 4; i++) {
           imgData.push(
-            `https://api.dicebear.com/7.x/${e.target.value
+            `https://api.dicebear.com/7.x/${
+              e.target.value
             }/svg?seed=${randomName()}`
           );
         }
@@ -250,8 +251,9 @@ const SetAvatar = () => {
                           <img
                             src={image}
                             alt=""
-                            className={`avatar ${selectedAvatar === index ? "selected" : ""
-                              } img-circle imgAvatar mt-5`}
+                            className={`avatar ${
+                              selectedAvatar === index ? "selected" : ""
+                            } img-circle imgAvatar mt-5`}
                             onClick={() => setSelectedAvatar(index)}
                             width="100%"
                             height="auto"
