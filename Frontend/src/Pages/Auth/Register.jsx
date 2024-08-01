@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { registerAPI } from "../../utils/ApiRequest";
 import axios from "axios";
+import { registerAPI } from "../../utils/ApiRequest";
 
 const Register = () => {
 
@@ -62,7 +63,7 @@ const Register = () => {
 
       setLoading(false);
      
-    const { data } = await axios.post("http://localhost:8000/api/auth/register", {
+    const { data } = await axios.post(registerAPI, {
         name,
         email,
         password

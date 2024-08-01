@@ -49,7 +49,7 @@ const Login = () => {
 
     setLoading(true);
     console.log(loginAPI);
-    const { data } = await axios.post("http://localhost:8000/api/auth/login", {
+    const { data } = await axios.post(loginAPI, {
       email,
       password,
     });
