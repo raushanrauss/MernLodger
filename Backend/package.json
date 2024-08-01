@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "server": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,7 @@
     "helmet": "^6.1.5",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
-    "mongoose": "^7.0.3",
+    "mongoose": "^8.5.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
     "puppeteer": "^22.15.0",
