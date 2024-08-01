@@ -3,7 +3,8 @@ import  { useCallback, useEffect, useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
-import Particles from "react-tsparticles";
+import { Particles } from "@tsparticles/react";
+
 import { loadFull } from "tsparticles";
 const Header = () => {
   

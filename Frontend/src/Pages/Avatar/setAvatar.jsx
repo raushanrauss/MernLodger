@@ -7,7 +7,8 @@ import axios from "axios";
 import spinner from "../../assets/gg.gif";
 import "./avatar.css";
 import { Button } from "react-bootstrap";
-import Particles from "react-tsparticles";
+import { Particles } from "@tsparticles/react";
+
 import { loadFull } from "tsparticles";
 import { setAvatarAPI } from "../../utils/ApiRequest";
 
