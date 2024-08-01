@@ -12,9 +12,7 @@ const navigate = useNavigate();
   const handleShowLogin = () =>{
     navigate("/login");
   }
-  const handlePdf = () => {
-    navigate("/genertePdf")
-  }
+  
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -134,12 +132,13 @@ const navigate = useNavigate();
         <Navbar.Collapse id="responsive-navbar-nav" style={{color: "white"}}>
           {user ? (
             <>
-            <Nav>
+                  <Nav>  
+                    <Button onClick={() => navigate('/generatePdf')} className="addNew">
+                  Generate pdf
+                  </Button>
                     <Button variant="primary" onClick={handleShowLogout} className="ml-2">Logout</Button>
                     
-                    <Button onClick={handlePdf} className="addNew">
-                      Generate Pdf
-                    </Button>
+                    
               </Nav>
             </>
           ) : (

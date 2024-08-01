@@ -2,7 +2,9 @@ const puppeteer = require('puppeteer');
 
 const generatePDF = async (htmlContent, filePath) => {
     const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  const page = await browser.newPage();
+  console.log(page)
+  console.log(browser);
 
     await page.setContent(htmlContent);
     await page.pdf({ path: filePath, format: 'A4' });

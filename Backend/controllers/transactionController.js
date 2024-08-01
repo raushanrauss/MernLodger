@@ -1,6 +1,7 @@
 const Transaction = require("../models/TransactionModel"); // Adjust the path if needed
 const User = require("../models/UserSchema"); // Adjust the path if needed
 const moment = require("moment");
+const fs = require('fs');
 const { generateTransactionPDF } = require("../Utils/pdfGeneraort");
 const path = require('path');
 const addTransactionController = async (req, res) => {
@@ -186,8 +187,10 @@ const updateTransactionController = async (req, res) => {
 const generateReportController = async (req, res) => {
   try {
     const { userId, startDate, endDate } = req.query;
+    console.log(userId, startDate, endDate);
 
     const user = await User.findById(userId);
+    console.log(user);
 
     if (!user) {
       return res.status(400).json({
@@ -195,6 +198,7 @@ const generateReportController = async (req, res) => {
         message: "User not found",
       });
     }
+    
 
     const query = { user: userId };
 
@@ -206,6 +210,7 @@ const generateReportController = async (req, res) => {
     }
 
     const transactions = await Transaction.find(query);
+    console.log(transactions);
 
     if (transactions.length === 0) {
       return res.status(404).json({
@@ -214,7 +219,12 @@ const generateReportController = async (req, res) => {
       });
     }
 
-    const filePath = path.join(__dirname, '..', 'reports', 'transactions_report.pdf');
+    const reportsDir = path.join(__dirname, '..', 'reports');
+    if (!fs.existsSync(reportsDir)) {
+      fs.mkdirSync(reportsDir, { recursive: true });
+    }
+
+    const filePath = path.join(reportsDir, 'transactions_report.pdf');
 
     await generateTransactionPDF(transactions, filePath);
 
@@ -225,12 +235,14 @@ const generateReportController = async (req, res) => {
       }
     });
   } catch (err) {
+    console.error("Server error:", err); // Added logging for server-side errors
     res.status(500).json({
       success: false,
       message: err.message,
     });
   }
 };
+
 
 module.exports = {
   addTransactionController,

@@ -19,6 +19,7 @@ const GenerateReportButton = () => {
 
             // Create a link element, set its href to the object URL, and click it to download
             const url = window.URL.createObjectURL(new Blob([response.data]));
+            console.log(url);
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', 'transactions_report.pdf');
