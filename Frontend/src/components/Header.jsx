@@ -134,9 +134,7 @@ const navigate = useNavigate();
           {user ? (
             <>
                   <Nav>  
-                    <Button onClick={() => navigate('/generatePdf')} className="addNew">
-                  Generate pdf
-                  </Button>
+                   
                     <Button variant="primary" onClick={handleShowLogout} className="ml-2">Logout</Button>
                     
                     

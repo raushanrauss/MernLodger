@@ -8,6 +8,7 @@ const transactionRoutes = require('./Routers/Transactions'); // Adjust path if n
 const userRoutes = require('./Routers/userRouter'); // Adjust path if needed
 const path = require('path');
 const connectDB = require('./DB/Database');
+const pdfRouter = require('./Routers/pdfRouter');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -16,24 +17,22 @@ const port = process.env.PORT || 8000;
 
 
 
-const allowedOrigins = [
-  'https://main.d1sj7cd70hlter.amplifyapp.com',
-  'https://expense-tracker-app-three-beryl.vercel.app',
-  // add more origins as needed
-];
+
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Router
 app.use('/api/v1', transactionRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/pdf',pdfRouter)
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

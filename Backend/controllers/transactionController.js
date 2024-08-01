@@ -4,6 +4,7 @@ const moment = require("moment");
 const fs = require('fs');
 const { generateTransactionPDF } = require("../Utils/pdfGeneraort");
 const path = require('path');
+const puppeteer = require('puppeteer');
 const addTransactionController = async (req, res) => {
   try {
     const {
@@ -185,63 +186,28 @@ const updateTransactionController = async (req, res) => {
 };
 
 const generateReportController = async (req, res) => {
-  try {
-    const { userId, startDate, endDate } = req.query;
-    console.log(userId, startDate, endDate);
+    const { htmlContent } = req.body;
+    console.log(htmlContent);
 
-    const user = await User.findById(userId);
-    console.log(user);
-
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-    
-
-    const query = { user: userId };
-
-    if (startDate && endDate) {
-      query.date = {
-        $gte: new Date(startDate),
-        $lte: new Date(endDate),
-      };
+    if (!htmlContent) {
+        return res.status(400).json({ error: 'HTML content is required' });
     }
 
-    const transactions = await Transaction.find(query);
-    console.log(transactions);
+    try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.setContent(htmlContent);
+        const pdfBuffer = await page.pdf({ format: 'A4' });
+        await browser.close();
 
-    if (transactions.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No transactions found",
-      });
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(pdfBuffer);
+    } catch (err) {
+        res.status(500).json({ error: 'Error generating PDF' });
     }
+}
 
-    const reportsDir = path.join(__dirname, '..', 'reports');
-    if (!fs.existsSync(reportsDir)) {
-      fs.mkdirSync(reportsDir, { recursive: true });
-    }
 
-    const filePath = path.join(reportsDir, 'transactions_report.pdf');
-
-    await generateTransactionPDF(transactions, filePath);
-
-    res.download(filePath, 'transactions_report.pdf', (err) => {
-      if (err) {
-        console.error("Error sending file:", err);
-        res.status(500).json({ success: false, message: "Error generating PDF" });
-      }
-    });
-  } catch (err) {
-    console.error("Server error:", err); // Added logging for server-side errors
-    res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-};
 
 
 module.exports = {
