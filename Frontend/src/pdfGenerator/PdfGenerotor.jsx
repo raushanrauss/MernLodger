@@ -1,5 +1,6 @@
 import {  useState } from 'react';
 import axios from 'axios';
+import { generatePdfData } from '../utils/ApiRequest';
 
 const GenerateReportButton = ({transactions}) => {
   console.log(transactions);
@@ -54,7 +55,7 @@ const GenerateReportButton = ({transactions}) => {
         `;
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/generateReport', { htmlContent }, {
+      const response = await axios.post(generatePdfData, { htmlContent }, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -85,14 +86,8 @@ const GenerateReportButton = ({transactions}) => {
   return (
     <div>
       <button onClick={generatePDF}>Generate and Download PDF</button>
-      {/* Optionally, you can still preview the PDF in an iframe */}
-      {/* {pdfUrl && (
-                <iframe
-                    src={pdfUrl}
-                    style={{ width: '100%', height: '600px', border: 'none' }}
-                    title="PDF Preview"
-                />
-            )} */}
+     
+       
     </div>
   );
 };

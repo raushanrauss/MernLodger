@@ -1,4 +1,4 @@
-const host = "https://mernlodger-1.onrender.com";
+const host = "https://mernlodger.onrender.com";
  //const host = "http://localhost:8000";
 export const setAvatarAPI = `${host}/api/auth/setAvatar`;
 export const registerAPI = `${host}/api/auth/register`;
@@ -7,3 +7,4 @@ export const addTransaction = `${host}/api/v1/addTransaction`;
 export const getTransactions = `${host}/api/v1/getTransaction`;
 export const editTransactions = `${host}/api/v1/updateTransaction`;
 export const deleteTransactions = `${host}/api/v1/deleteTransaction`;
+export const generatePdfData = `${host}/api/v1/generateReport`;   
