@@ -13,7 +13,7 @@ Fullstack open source blogging application made with MongoDB, Express, React & N
   * [Author](#author)
 
   ## Deployee Link
-  -- https://mern-lodger-m3im.vercel.app/login
+  * https://mern-lodger-m3im.vercel.app/login
   
 
 
