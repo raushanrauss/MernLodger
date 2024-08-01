@@ -15,7 +15,7 @@ Fullstack Ledger management application made with MongoDB, Express, React & Node
       - [Database](#database)
   * [Author](#author)
 
-This Project is hosted on vercel : [Ledger](https://mern-lodger-tlec.vercel.app/login)
+This Project is hosted on vercel : [Ledger](https://mern-lodger-tlec.vercel.app/)
 
   
 
