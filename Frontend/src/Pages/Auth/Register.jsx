@@ -61,25 +61,34 @@ const Register = () => {
 
       const {name, email, password} = values;
 
-      setLoading(false);
-     
-    const { data } = await axios.post(registerAPI, {
+    setLoading(true);
+    try {
+
+      const { data } = await axios.post(registerAPI, {
         name,
         email,
         password
       });
 
-      if(data.success === true){
+      if (data.success === true) {
         delete data.user.password;
         localStorage.setItem("user", JSON.stringify(data.user));
         toast.success(data.message, toastOptions);
         setLoading(true);
         navigate("/");
       }
-      else{
-        toast.error(data.message, toastOptions);
-        setLoading(false);
+      else {
+        toast.error(data.message,toastOptions)
       }
+    }
+    catch (error) {
+      toast.error("An error occurred, please try again later.", toastOptions);
+    }
+    finally {
+      setLoading(false);
+    }
+      
+      
     };
 
   return (

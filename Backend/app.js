@@ -8,7 +8,7 @@ const transactionRoutes = require('./Routers/Transactions'); // Adjust path if n
 const userRoutes = require('./Routers/userRouter'); // Adjust path if needed
 const path = require('path');
 const connectDB = require('./DB/Database');
-const pdfRouter = require('./Routers/pdfRouter');
+
 
 dotenv.config({ path: './config/config.env' });
 
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Router
 app.use('/api/v1', transactionRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/pdf',pdfRouter)
+
 
 
 app.get('/', (req, res) => {
