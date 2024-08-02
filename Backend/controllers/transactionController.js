@@ -187,34 +187,39 @@ const updateTransactionController = async (req, res) => {
 };
 
 const generateReportController = async (req, res) => {
-    const { htmlContent } = req.body;
-    console.log(htmlContent);
+  const { htmlContent } = req.body;
 
-    if (!htmlContent) {
-        return res.status(400).json({ error: 'HTML content is required' });
-  }
-  let option;
-  option = {
-    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-    defaultViewport: chrome.defaultViewport,
-    executablePath: await chrome.executablePath,
-    headless: true,
-    ignoreHTTPSErrors:true
+  if (!htmlContent) {
+    return res.status(400).json({ error: 'HTML content is required' });
   }
 
-    try {
-        const browser = await puppeteer.launch(option);
-        const page = await browser.newPage();
-        await page.setContent(htmlContent);
-        const pdfBuffer = await page.pdf({ format: 'A4' });
-        await browser.close();
+  let browser;
+  try {
+    const options = {
+      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    };
 
-        res.setHeader('Content-Type', 'application/pdf');
-        res.send(pdfBuffer);
-    } catch (err) {
-        res.status(500).json({ error: 'Error generating PDF' });
+    browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    await page.setContent(htmlContent);
+    const pdfBuffer = await page.pdf({ format: 'A4' });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.send(pdfBuffer);
+  } catch (err) {
+    console.error('Error generating PDF:', err.message);
+    res.status(500).json({ error: 'Error generating PDF' });
+  } finally {
+    if (browser) {
+      await browser.close();
     }
-}
+  }
+};
+
 
 
 
