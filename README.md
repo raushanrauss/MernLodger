@@ -1,8 +1,11 @@
 
-<H1 align ="center" > Transactotion-check app  </h1>
+<H1 align ="center" > Ledger Management App  </h1>
 <h5  align ="center"> 
-Fullstack open source blogging application made with MongoDB, Express, React & Nodejs (MERN) </h5>
+Fullstack Ledger management application made with MongoDB, Express, React & Nodejs (MERN) </h5>
 <br/>
+
+![Screenshot 2024-07-07 125423](https://github.com/raushanrauss/MernLodger/blob/main/Frontend/public/Screenshot%202024-08-02%20012843.png)
+![Screenshot 2024-07-07 125423](https://github.com/raushanrauss/MernLodger/blob/main/Frontend/public/Screenshot%202024-08-02%20013046.png)
 
   * [Configuration and Setup](#configuration-and-setup)
   * [Key Features](#key-features)
@@ -12,6 +15,7 @@ Fullstack open source blogging application made with MongoDB, Express, React & N
       - [Database](#database)
   * [Author](#author)
 
+This Project is hosted on vercel : [Ledger](https://mern-lodger-tlec.vercel.app/)
 
   
 
