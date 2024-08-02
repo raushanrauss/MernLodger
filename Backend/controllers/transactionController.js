@@ -4,7 +4,8 @@ const moment = require("moment");
 const fs = require('fs');
 const { generateTransactionPDF } = require("../Utils/pdfGeneraort");
 const path = require('path');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+const chrome = require('chrome-aws-lambda');
 const addTransactionController = async (req, res) => {
   try {
     const {
@@ -191,10 +192,18 @@ const generateReportController = async (req, res) => {
 
     if (!htmlContent) {
         return res.status(400).json({ error: 'HTML content is required' });
-    }
+  }
+  let option;
+  option = {
+    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+    defaultViewport: chrome.defaultViewport,
+    executablePath: await chrome.executablePath,
+    headless: true,
+    ignoreHTTPSErrors:true
+  }
 
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch(option);
         const page = await browser.newPage();
         await page.setContent(htmlContent);
         const pdfBuffer = await page.pdf({ format: 'A4' });
