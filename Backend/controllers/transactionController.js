@@ -4,7 +4,7 @@ const moment = require("moment");
 const fs = require('fs');
 const { generateTransactionPDF } = require("../Utils/pdfGeneraort");
 const path = require('path');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const chrome = require('chrome-aws-lambda');
 const addTransactionController = async (req, res) => {
   try {
@@ -186,6 +186,8 @@ const updateTransactionController = async (req, res) => {
   }
 };
 
+
+
 const generateReportController = async (req, res) => {
   const { htmlContent } = req.body;
 
@@ -196,9 +198,15 @@ const generateReportController = async (req, res) => {
   let browser;
   try {
     const options = {
-      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-web-security',
+        '--hide-scrollbars'
+      ],
       defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
+      executablePath: process.env.CHROME_EXECUTABLE_PATH || await chrome.executablePath,
       headless: true,
       ignoreHTTPSErrors: true,
     };
@@ -219,6 +227,11 @@ const generateReportController = async (req, res) => {
     }
   }
 };
+
+module.exports = {
+  generateReportController
+};
+
 
 
 
