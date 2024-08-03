@@ -17,6 +17,6 @@ router.route('/deleteTransaction/:id').post(deleteTransactionController);
 
 router.route('/updateTransaction/:id').put(updateTransactionController);
 
-router.post('/generateReport',generateReportController);
+
 
 module.exports = router;

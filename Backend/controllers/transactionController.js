@@ -188,47 +188,7 @@ const updateTransactionController = async (req, res) => {
 
 
 
-const generateReportController = async (req, res) => {
-  const { htmlContent } = req.body;
 
-  if (!htmlContent) {
-    return res.status(400).json({ error: 'HTML content is required' });
-  }
-
-  let browser;
-  try {
-    console.log("Inside try block");
-    const options = {
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-web-security',
-        '--hide-scrollbars'
-      ],
-      defaultViewport: chrome.defaultViewport,
-      executablePath: process.env.CHROME_EXECUTABLE_PATH || await chrome.executablePath,
-      headless: true,
-      ignoreHTTPSErrors: true,
-    };
-
-    browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.setContent(htmlContent);
-    const pdfBuffer = await page.pdf({ format: 'A4' });
-
-    res.setHeader('Content-Type', 'application/pdf');
-    res.send(pdfBuffer);
-  } catch (err) {
-    // console.error('Error generating PDF:', err.message);
-    console.log(err)
-    res.status(500).json({ error: 'Error generating PDF' });
-  } finally {
-    if (browser) {
-      await browser.close();
-    }
-  }
-};
 
 module.exports = {
   generateReportController
