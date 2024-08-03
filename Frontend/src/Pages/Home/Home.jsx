@@ -14,7 +14,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Analytics from "./Analytics";
-import GenerateReportButton from "../../pdfGenerator/PdfGenerotor";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import MyDocument from "../../components/pdf";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -194,12 +195,19 @@ const Home = () => {
             </div>
 
             <div>
+              {/* Updated button to trigger PDF generation */}
+              <div style={{ marginTop: '20px' }}>
+                <PDFDownloadLink
+                  document={<MyDocument transactions={transactions} />} // Pass transactions as prop if needed
+                  fileName="transactions-report.pdf"
+                >
+                  {({ loading }) => (loading ? 'Preparing document...' : <Button variant="primary">Download PDF</Button>)}
+                </PDFDownloadLink>
+              </div>
+
               <Button onClick={handleShow} className="addNew">
                 Add New
               </Button>
-
-              {/* Updated button to trigger PDF generation */}
-              <GenerateReportButton transactions={transactions} />
 
               <Button onClick={handleShow} className="mobileBtn">
                 +
