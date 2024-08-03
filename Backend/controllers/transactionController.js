@@ -197,6 +197,7 @@ const generateReportController = async (req, res) => {
 
   let browser;
   try {
+    console.log("Inside try block");
     const options = {
       args: [
         '--no-sandbox',
@@ -219,7 +220,8 @@ const generateReportController = async (req, res) => {
     res.setHeader('Content-Type', 'application/pdf');
     res.send(pdfBuffer);
   } catch (err) {
-    console.error('Error generating PDF:', err.message);
+    // console.error('Error generating PDF:', err.message);
+    console.log(err)
     res.status(500).json({ error: 'Error generating PDF' });
   } finally {
     if (browser) {
